@@ -153,6 +153,16 @@ int main() {
 
 	/* Benchmark model */
 	auto bench = ankerl::nanobench::Bench().minEpochIterations(operations).relative(true);
+	bench.run("google chrome base64 encode", [&] {
+	
+		for (int j = 0; j < SIZE_PACKED; j+=3) {
+			to_print[j] = lookup_x4[data[j+0]];
+			to_print[j+1] = lookup[((data[j+0] * 16) % 64) | (data[j+1] / 16)];
+			to_print[j+2] = lookup[((data[j+1] * 4) % 64) | (data[j+2] % 64)];
+			to_print[j+3] = lookup_m64[data[j+2]];
+		}
+	});
+	
 	bench.run("avx2 base64 encode", [&] {
 		for (int i = 0; i < SIZE_PACKED; i += 24) {
 			__m256i input = _mm256_loadu_si256((__m256i*)(&data[i]-4));
@@ -196,16 +206,6 @@ int main() {
 			to_print[i+29] = lookup[((uint8_t*)&t1)[29]];
 			to_print[i+30] = lookup[((uint8_t*)&t1)[31]];
 			to_print[i+31] = lookup_m64[data[31]];
-		}
-	});
-	
-	bench.run("google chrome base64 encode", [&] {
-	
-		for (int j = 0; j < SIZE_PACKED; j+=3) {
-			to_print[j] = lookup_x4[data[j+0]];
-			to_print[j+1] = lookup[((data[j+0] * 16) % 64) | (data[j+1] / 16)];
-			to_print[j+2] = lookup[((data[j+1] * 4) % 64) | (data[j+2] % 64)];
-			to_print[j+3] = lookup_m64[data[j+2]];
 		}
 	});
 	

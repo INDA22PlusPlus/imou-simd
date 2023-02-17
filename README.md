@@ -5,9 +5,9 @@ The idea started from this [article](https://arxiv.org/pdf/1704.00605.pdf), wher
 Nanobench was used to get the benchmarking results
 
 ## Results
-| Relative | ns/op     | op/s       | err% | total | benchmark                     |
-|----------|-----------|------------|------|:-----:|-------------------------------|
-|  100.0%  |  9,645.56 | 103,674.59 | 0.4% |  1.18 | `avx2 base64 encode`          |
-|   61.5%  | 15,693.97 |  63,718.74 | 0.5% |  1.87 | `google chrome base64 encode` |
+| relative |               ns/op |                op/s |    err% |     total | benchmark
+|---------:|--------------------:|--------------------:|--------:|----------:|:----------
+|   100.0% |           15,773.88 |           63,395.94 |    0.6% |      1.90 | `google chrome base64 encode`
+|   162.5% |            9,706.89 |          103,019.64 |    0.5% |      1.16 | `avx2 base64 encode`
 
-Almost 40% faster! Compile -O1 for same results. 
+60% faster! Compile with -O1 for same results. 
