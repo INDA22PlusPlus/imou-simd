@@ -1,6 +1,7 @@
 #include "nanobench.h"
 #include <iostream>
 #include <cstdlib>
+
 #include <immintrin.h>
 
 
@@ -171,40 +172,45 @@ int main() {
 			__m256i t0 = _mm256_and_si256(in, and_mask);
 			__m256i t1 = _mm256_mulhi_epu16(t0, mul_mask);
 			
+			/* Do not worry, compiler will translate `std::memcpy` block to
+			   classic type punning */
+			uint8_t w[32];
+			std::memcpy(&w[0], &t1, sizeof(t1));
+			
 			to_print[i+0] = lookup_x4[data[0]];
-			to_print[i+1] = lookup[((uint8_t*)&t1)[1]];
-			to_print[i+2] = lookup[((uint8_t*)&t1)[3]];
+			to_print[i+1] = lookup[w[1]];
+			to_print[i+2] = lookup[w[3]];
 			to_print[i+3] = lookup_m64[data[3]];
 			to_print[i+4] = lookup_x4[data[4]];
-			to_print[i+5] = lookup[((uint8_t*)&t1)[5]];
-			to_print[i+6] = lookup[((uint8_t*)&t1)[7]];
+			to_print[i+5] = lookup[w[5]];
+			to_print[i+6] = lookup[w[7]];
 			to_print[i+7] = lookup_m64[data[7]];
 			
 			to_print[i+8] = lookup_x4[data[8]];
-			to_print[i+9] = lookup[((uint8_t*)&t1)[9]];
-			to_print[i+10] = lookup[((uint8_t*)&t1)[11]];
+			to_print[i+9] = lookup[w[9]];
+			to_print[i+10] = lookup[w[11]];
 			to_print[i+11] = lookup_m64[data[11]];
 			to_print[i+12] = lookup_x4[data[12]];
-			to_print[i+13] = lookup[((uint8_t*)&t1)[13]];
-			to_print[i+14] = lookup[((uint8_t*)&t1)[15]];
+			to_print[i+13] = lookup[w[13]];
+			to_print[i+14] = lookup[w[15]];
 			to_print[i+15] = lookup_m64[data[15]];
 			
 			to_print[i+16] = lookup_x4[data[16]];
-			to_print[i+17] = lookup[((uint8_t*)&t1)[17]];
-			to_print[i+18] = lookup[((uint8_t*)&t1)[19]];
+			to_print[i+17] = lookup[w[17]];
+			to_print[i+18] = lookup[w[19]];
 			to_print[i+19] = lookup_m64[data[19]];
 			to_print[i+20] = lookup_x4[data[20]];
-			to_print[i+21] = lookup[((uint8_t*)&t1)[21]];
-			to_print[i+22] = lookup[((uint8_t*)&t1)[23]];
+			to_print[i+21] = lookup[w[21]];
+			to_print[i+22] = lookup[w[23]];
 			to_print[i+23] = lookup_m64[data[23]];
 			
 			to_print[i+24] = lookup_x4[data[24]];
-			to_print[i+25] = lookup[((uint8_t*)&t1)[25]];
-			to_print[i+26] = lookup[((uint8_t*)&t1)[27]];
+			to_print[i+25] = lookup[w[25]];
+			to_print[i+26] = lookup[w[27]];
 			to_print[i+27] = lookup_m64[data[27]];
 			to_print[i+28] = lookup_x4[data[28]];
-			to_print[i+29] = lookup[((uint8_t*)&t1)[29]];
-			to_print[i+30] = lookup[((uint8_t*)&t1)[31]];
+			to_print[i+29] = lookup[w[29]];
+			to_print[i+30] = lookup[w[31]];
 			to_print[i+31] = lookup_m64[data[31]];
 		}
 	});
