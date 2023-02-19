@@ -5,14 +5,15 @@ The idea started from this [article](https://arxiv.org/pdf/1704.00605.pdf), wher
 Nanobench was used to get the benchmarking results
 
 ## Results
-`g++ base64-enc.cpp -O1 -march=native -o base64-enc`
+`g++ base64-enc.cpp -O1 -march=native -o base64-enc`<br>
 | relative |               ns/op |                op/s |    err% |     total | benchmark
 |---------:|--------------------:|--------------------:|--------:|----------:|:----------
 |   100.0% |           15,773.88 |           63,395.94 |    0.6% |      1.90 | `google chrome base64 encode`
 |   162.5% |            9,706.89 |          103,019.64 |    0.5% |      1.16 | `avx2 base64 encode`
 <br>
-<br>
-`clang++ nanobench.o base64-enc.cpp -O3 -march=native -o base64-enc`
+
+`clang++ base64-enc.cpp -O3 -march=native -o base64-enc`<br>
+
 | relative |               ns/op |                op/s |    err% |     total | benchmark
 |---------:|--------------------:|--------------------:|--------:|----------:|:----------
 |   100.0% |           11,428.46 |           87,500.86 |    0.5% |      1.38 | `google chrome base64 encode`
